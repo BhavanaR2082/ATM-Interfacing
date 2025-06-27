@@ -1,0 +1,100 @@
+package ATM;
+
+import java.util.Scanner;
+
+public class atminterfacing {
+	public static void main(String[] args) {
+	        int balance = 30000;
+	        int totalWithdrawn = 0;
+	        int totalDeposited = 0;
+	        int totalTransferred = 0;
+
+	        Scanner sc = new Scanner(System.in);
+	        int pin = 2082;
+
+	        System.out.print("Enter PIN: ");
+	        int enteredPin = sc.nextInt();
+
+	        if (pin == enteredPin) {
+	            while (true) {
+	                System.out.println("\n------ WELCOME TO ATM ------");
+	                System.out.println("1. View Transaction History");
+	                System.out.println("2. Withdraw Money");
+	                System.out.println("3. Deposit Money");
+	                System.out.println("4. Transfer Money");
+	                System.out.println("5. Exit");
+	                System.out.print("Enter option: ");
+	                int choice = sc.nextInt();
+
+	                switch (choice) {
+	                    case 1:
+	                        System.out.println("\n--- Transaction History ---");
+	                        System.out.println("Total Withdrawn: ₹" + totalWithdrawn);
+	                        System.out.println("Total Deposited: ₹" + totalDeposited);
+	                        System.out.println("Total Transferred: ₹" + totalTransferred);
+	                        System.out.println("Current Balance: ₹" + balance);
+	                        break;
+
+	                    case 2:
+	                        System.out.print("Enter amount to withdraw: ₹");
+	                        int withdrawAmount = sc.nextInt();
+	                        if (withdrawAmount > balance) {
+	                            System.out.println("❌ Insufficient Balance. Unable to withdraw.");
+	                        } else {
+	                            balance -= withdrawAmount;
+	                            totalWithdrawn += withdrawAmount;
+	                            System.out.println("✅ ₹" + withdrawAmount + " withdrawn successfully.");
+	                        }
+	                        break;
+
+	                    case 3:
+	                        System.out.print("Enter amount to deposit: ₹");
+	                        int depositAmount = sc.nextInt();
+	                        balance += depositAmount;
+	                        totalDeposited += depositAmount;
+	                        System.out.println("✅ ₹" + depositAmount + " deposited successfully.");
+	                        break;
+
+	                    case 4:
+	                        System.out.print("Enter beneficiary account number: ");
+	                        String accountNo = sc.next();
+	                        System.out.print("Enter IFSC code: ");
+	                        String ifsc = sc.next();
+
+	                        System.out.println("Confirm Account Number:");
+	                        System.out.println("1. Confirm");
+	                        System.out.println("2. Cancel");
+	                        int confirm = sc.nextInt();
+
+	                        if (confirm == 1) {
+	                            System.out.print("Enter amount to transfer: ₹");
+	                            int transferAmount = sc.nextInt();
+	                            if (transferAmount > balance) {
+	                                System.out.println("❌ Insufficient Balance. Transfer failed.");
+	                            } else {
+	                                balance -= transferAmount;
+	                                totalTransferred += transferAmount;
+	                                System.out.println("✅ ₹" + transferAmount + " transferred successfully.");
+	                            }
+	                        } else {
+	                            System.out.println("❌ Transfer cancelled. Invalid confirmation.");
+	                        }
+	                        break;
+
+	                    case 5:
+	                        System.out.println("🙏 Thank you for using our ATM. Goodbye!");
+	                        sc.close();
+	                        System.exit(0);
+	                        break;
+
+	                    default:
+	                        System.out.println("❌ Invalid option. Please try again.");
+	                }
+	            }
+	        } else {
+	            System.out.println("❌ Invalid PIN. Access denied.");
+	        }
+	    }
+	}
+
+
